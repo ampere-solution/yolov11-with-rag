@@ -1,0 +1,45 @@
+services:
+  app:
+    cpuset: "0-39"
+    image: tinguyen2024/visual-intellegent-systgem:v1.1
+    container_name: vis 
+    #build:
+      #context: .
+      #dockerfile: Dockerfile
+    ports:
+      - "5070:5070"
+    volumes:
+      - ./videos:/app/videos:ro
+      - ./models:/app/models:ro
+      - tracking-data:/data
+    environment:
+      - DB_PATH=/data/tracking.db
+      - VIDEOS_DIR=/app/videos
+      - MODELS_DIR=/app/models
+      - LLM_THREADS=32
+      - LLM_THREADS_BATCH=32
+      - LLM_CTX=100000
+      - LLM_BATCH=512
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:11.4.0
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+      - GF_INSTALL_PLUGINS=simpod-json-datasource
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/var/lib/grafana/dashboards/overview.json
+    depends_on:
+      - app
+    restart: unless-stopped
+
+volumes:
+  tracking-data:
+  grafana-data:
