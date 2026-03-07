@@ -1,11 +1,10 @@
 services:
   app:
     cpuset: "0-39"
-    image: tinguyen2024/visual-intellegent-systgem:v1.1
-    container_name: vis 
+    image: tinguyen2024/visual-intellegent-systgem:v1.2
     #build:
-      #context: .
-      #dockerfile: Dockerfile
+    #  context: .
+    #  dockerfile: Dockerfile
     ports:
       - "5070:5070"
     volumes:
@@ -20,6 +19,8 @@ services:
       - LLM_THREADS_BATCH=32
       - LLM_CTX=100000
       - LLM_BATCH=512
+      - AUTO_START_VIDEO=driving-ny.mp4
+      - AUTO_LOAD_LLM=Llama-3.2-3B-Instruct-Q4_K_4.gguf
     restart: unless-stopped
 
   grafana:
