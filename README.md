@@ -1,6 +1,10 @@
 # YOLOv11 Object Detection and Tracking
 ## User Interface
-
+This is a real-time video analytics platform showcasing AI on Ampere CPUs.  It combines four capabilities in one dashboard:
+- Object Detection & Tracking - YOLOv11 inference with Bytetrack assigns persistent IDs to objects across frames, drawn live on an MJPEG video feed.
+- Local LLM Q&A with RAG - A GGUF model (via llama-cpp-python) answer natural language questions about what happening in the video, with question aware section selection so the LLM only sees relevant data.
+- Observability - Time series metrics stream to a Flask + SOcket.IO web UI and a companion Grafana dashboard.
+<img width="2091" height="1094" alt="image-20260504-170501.png" src="image-20260504-170501.png" />
 
 
 
