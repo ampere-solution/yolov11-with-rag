@@ -6,6 +6,11 @@ This is a real-time video analytics platform showcasing AI on Ampere CPUs.  It c
 - Observability - Time series metrics stream to a Flask + SOcket.IO web UI and a companion Grafana dashboard.
 <img width="2091" height="1094" alt="image-20260504-170501.png" src="image-20260504-170501.png" />
 
+## Architectural Diagram
+
+
+
+
 
 
 
