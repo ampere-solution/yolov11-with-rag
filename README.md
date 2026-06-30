@@ -67,9 +67,80 @@ Overall, Ampere processors are a credible, cost effective, production grade plat
    - Single server replaces GPU rig: Compare deployment footprint verbally - Ampere CPU only vs. CPU host + GPU
  
 ## Running the Demo
+**Recommended Resources**
+Step-by-step guide to run the Object Detection and Tracking with RAG demo in Docker.
+- Minimum: 40 cores. Recommended: 40+ cores
+- Minimum: 32GB RAM. Recommended: 64+ GB RAM
+- Minimum: 20GB disk space. Recommended: 100+ GB (multiple models, large models)
 
+**Software Stack**
+- Base Image: amperecomputingai/llama.cpp:3.4.2-ampereone
+- Python: 3.3
+- Flask: 3.1.0
+- Flask-SocketIO: 5.4.1
+- Chart.js: 4.4.1
+- OpenCV (headless): =4.9.0
+- llama-cpp-python: 0.3.16
+- Grafana: 11.4.0
+- Docker Compose: v2.0+
 
+**Demo Deployment**
+- Install docker 
+- Git clone from the repo:  GitHub - ampere-solution/yolov11-with-rag 
+- Download the Ampere optimized 'Llama-3.2-3B-Instruct-Q4_K_4.gguf' model
+- Place the model inside the models/ directory.
+- Place the videos inside the videos/ directory.
+- docker-compose.yaml:
+```yaml
+services:
+  app:
+    cpuset: "0-39"
+    image: tinguyen2024/visual-intellegent-systgem:v1.2
+    #build:
+    #  context: .
+    #  dockerfile: Dockerfile
+    ports:
+      - "5070:5070"
+    volumes:
+      - ./videos:/app/videos:ro
+      - ./models:/app/models:ro
+      - tracking-data:/data
+    environment:
+      - DB_PATH=/data/tracking.db
+      - VIDEOS_DIR=/app/videos
+      - MODELS_DIR=/app/models
+      - LLM_THREADS=32
+      - LLM_THREADS_BATCH=32
+      - LLM_CTX=100000
+      - LLM_BATCH=512
+      - AUTO_START_VIDEO=driving-ny.mp4
+      - AUTO_LOAD_LLM=Llama-3.2-3B-Instruct-Q4_K_4.gguf
+    restart: unless-stopped
 
+  grafana:
+    image: grafana/grafana:11.4.0
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+      - GF_INSTALL_PLUGINS=simpod-json-datasource
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/var/lib/grafana/dashboards/overview.json
+    depends_on:
+      - app
+    restart: unless-stopped
+
+volumes:
+  tracking-data:
+  grafana-data:
+```
+- Run 'start_app.sh'. The script will pull the demo docker image from docker hub, setup the environments neccessary for this demo.
+- Open the demo at http://< your_ip_address >:5070
 
 
 
