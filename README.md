@@ -142,21 +142,22 @@ volumes:
 - Run 'start_app.sh'. The script will pull the demo docker image from docker hub, setup the environments neccessary for this demo.
 - Open the demo at http://< your_ip_address >:5070
 
+**Demo Talking Points**
+- CPU-only, full AI stack - YOLOv11 detection, ByteTrack multi-object tracking, and a local GGUF LLM all running together at ~30fps on Ampere processors. 
+- Persistent multi-object tracking - Each object gets a stable track ID across frames
+- Live-data RAG - The LLM answers questions about what’s happening.
+- Question-aware context selection - The system inspects each question and sends only the relevant RAG sections
+- Radical transparency - returns the exact text the LLM sees
+- Production observability build-in
 
+**Stop the Demo**
+- Graceful stop
+```bash
+# stop_app.sh
+$ docker compose stop
+```
+- Remove the demo
+```bash
+$ docker compose down
+```
 
-
-
-
-----------
-# yolov11-with-rag - How-to
-### Getting Started
-1. **Download** the Ampere optimized 'Llama-3.2-3B-Instruct-Q4_K_4.gguf' model from [Hugging Face](https://huggingface.co).
-2. **Place** the model inside the `models/` directory.
-3. **Place** the videos inside the `videos/` directory.
-4. **Run** the setup script:
-   ```bash
-   ./start_app.sh
-
-**The script** will pull the demo docker image from docker hub, setup the environments neccessary for this demo.
-
-**Open** the demo at http://< your_ip_address >:5070
