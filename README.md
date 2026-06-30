@@ -26,6 +26,7 @@ The demo is built to speak to several groups:
 
 ## Key Message  - What are we trying to convince of?
 **Core message**
+
 Ampere processors can run the full modern AI stack - vision + tracking + LLM + observability in production, today, without GPUs.
 - CPU only inference is real, not a compromise 
    - YOLOv11 + ByteTrack runs at ~30fps on Ampere
@@ -49,7 +50,23 @@ Ampere processors can run the full modern AI stack - vision + tracking + LLM + o
 
 Overall, Ampere processors are a credible, cost effective, production grade platform for the full AI stack - vision and LLMs together.  
 
-
+## Proof Points - How does It Show This?
+- CPU-only inference is production viable
+   - YOLOv11 runs at real-time FPS on CPU: Stats bar display live FPS
+   - No GPU dependency: docker stats shows zero GPU usage;  Dockerfile uses Ampere base image with no CUDA
+- Local LLM delivers usable Q&A latency
+   - Fast time to first token: Q&A response shows TTFT in ms next to every answer
+   - Competitive throughput: Same bar show tokens/sec
+   - Useful answer quality: Ask layered questions - answers are accurate
+- Private, local AI
+   - Data never leaves the box: visibly assembled from local timeline
+   - GGUF models are interchangeable: Switch to different model - no code change
+- TCO advantage over GPU pipelines
+   - Power efficiency: Grafana GPU panel show modest utilization for full pipeline
+   - Core scaling: Pinned to 40 Ampere cores.
+   - Single server replaces GPU rig: Compare deployment footprint verbally - Ampere CPU only vs. CPU host + GPU
+ 
+## Running the Demo
 
 
 
