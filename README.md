@@ -24,6 +24,30 @@ The demo is built to speak to several groups:
 - Solution partners & ISVs - Companies building video analytics products who could port or co-develop on Ampere, using this as a reference architecture (detection + tracking + RAG + observability in one container)
 - Trade show & briefing center visitors - Non technical executives and analysts who need a visually compelling, self running demo that tells the “full AI stack on Ampere“ story at a glance.
 
+## Key Message  - What are we trying to convince of?
+**Core message**
+Ampere processors can run the full modern AI stack - vision + tracking + LLM + observability in production, today, without GPUs.
+- CPU only inference is real, not a compromise 
+   - YOLOv11 + ByteTrack runs at ~30fps on Ampere
+   - Quantized GGUF LLMs deliver useful Q&A latency
+   - Convince:  You don’t need a GPU budget to deploy video AI.
+- The whole stack fits in one container
+   - Detection, tracking, LLM, RAG, metrics, and UI in a single Flask process
+   - Convince:  Edge and on-prem deployment is operationally simple
+- Private, local AI is viable
+   - LLM runs locally
+   - No data leaves the box
+   - Convince:  You can have RAG-powered Q&A without sending videos or telemetry to the cloud.
+- Production ready
+   - Convince:  this is a reference architecture, not a science project.
+- Total cost of ownership advantages 
+   - Ampere processors - lower power, lower cost, broader availability than GPUs
+   - Convince:  switching to Ampere reduce TCO without sacrificing capability
+- Developer friendly and extensible
+   - Standard python stack (Flask, Socket.IO, Ultralytics, llama-cpp-python)
+   - Convince:  yourour team can build on this.
+
+Overall, Ampere processors are a credible, cost effective, production grade platform for the full AI stack - vision and LLMs together.  
 
 
 
